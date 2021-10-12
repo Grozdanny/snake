@@ -2,13 +2,16 @@ import react from "react";
 import React from "react";
 import ReactDOM from "react-dom";
 
-class tile extends react.Component {
+class Tile extends react.Component {
 
 }
-class grid extends react.component {
-
+class Grid extends react.component {
+  render() {
+    const grid = Array(7).fill(Array(7).fill(null));
+  }
+  
 }
-class game extends react.component {
+class Game extends react.component {
 
 }
 
