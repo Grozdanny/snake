@@ -11,8 +11,11 @@ class Tile extends React.Component{
       const snakeXCoordinate = this.props.snakePositionCoordinates[0];
       const snakeYCoordinate = this.props.snakePositionCoordinates[1];
       const isSnakeIn = this.props.X === snakeXCoordinate && this.props.Y === snakeYCoordinate ? true : false;
-
-      return <div className={`tile ${isSnakeIn ? "snake" : ""}`}>{`${this.props.X}, ${this.props.Y}`}</div>
+      
+      const foodXCoordinate = this.props.foodPositionCoordinates[0];
+      const foodYCoordinate = this.props.foodPositionCoordinates[1];
+      const isFoodIn = this.props.X === foodXCoordinate && this.props.Y === foodYCoordinate ? true : false ;
+      return <div className={`tile ${isSnakeIn ? "snake" : ""} ${isFoodIn ? "food" : ""}`}>{`${this.props.X}, ${this.props.Y}`}</div>
   }
 }
 
@@ -31,7 +34,10 @@ class Grid extends React.Component{
                       return(
                       <div className="yGrid">
                           {gridY.map((gridX,xIndex) => {
-                             return <Tile X={xIndex} Y={yIndex} snakePositionCoordinates={this.props.snakeTileCoordinates} />
+                             return <Tile X={xIndex} Y={yIndex} 
+                             snakePositionCoordinates={this.props.snakeTileCoordinates}
+                             foodPositionCoordinates={this.props.foodTileCoordinates}
+                             />
                           })}
                       </div>
                       )
@@ -49,7 +55,7 @@ class Game extends React.Component{
         this.state ={
             gridSize:[7, 7],
             snake:[3, 3],
-            food:[],
+            food:[5,1],
         }
     }
 
@@ -58,6 +64,7 @@ class Game extends React.Component{
                 <Grid 
                     gridSize={this.state.gridSize}
                     snakeTileCoordinates={this.state.snake}
+                    foodTileCoordinates={this.state.food}
                 />
                )
     } 
