@@ -17,6 +17,7 @@ class Tile extends React.Component{
       const isFoodIn = this.props.X === foodXCoordinate && this.props.Y === foodYCoordinate ? true : false ;
       return <div className={`tile ${isSnakeIn ? "snake" : ""} ${isFoodIn ? "food" : ""}`}>{`${this.props.X}, ${this.props.Y}`}</div>
   }
+
 }
 
 class Grid extends React.Component{
