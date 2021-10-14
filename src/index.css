@@ -8,13 +8,15 @@
   
   .tile {
     display: table-cell;
-    background-color: #999;
+    background-color: rgb(6, 109, 6);
     padding: 10px;
-    border: 1px solid white;
+    border: 1px solid rgb(32, 179, 199);
+    height: 30px;
+    width: 30px;
   }
   
   .tile.snake {
-    background-color: seagreen;
+    background-color: rgb(24, 163, 84);
   }
   
   .tile.food {
