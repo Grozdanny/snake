@@ -17,7 +17,7 @@ class Tile extends React.Component{
       const foodXCoordinate = this.props.foodPositionCoordinates[0];
       const foodYCoordinate = this.props.foodPositionCoordinates[1];
       const isFoodIn = this.props.X === foodXCoordinate && this.props.Y === foodYCoordinate ? true : false ;
-      return <div className={`tile ${isSnakeIn ? "snake" : ""} ${isFoodIn ? "food" : ""}`}>{`${this.props.X}, ${this.props.Y}`}</div>
+      return <div className={`tile ${isSnakeIn ? "snake" : ""} ${isFoodIn ? "food" : ""}`}></div>
   }
 
 }
@@ -58,7 +58,7 @@ class Game extends React.Component{
             gridSize:[7, 7],
             snake:[3, 3],
             food:[5,1],
-            direction: "left", 
+            direction: "U", 
             time: 0
         }
         this.onClick = this.onClick.bind(this);
@@ -73,19 +73,19 @@ class Game extends React.Component{
 
         switch(this.state.direction){           
             
-            case "up":
+            case "L":
                 tmp = this.state.snake[0] - 1 < 0 ? this.state.gridSize[0] - 1 :this.state.snake[0] - 1;
                 newSnake = [tmp, this.state.snake[1] ];
                 break;
-            case "down":
+            case "R":
                 tmp = (this.state.snake[0] + 1) % this.state.gridSize[0];
                 newSnake = [tmp, this.state.snake[1] ];
                 break;
-            case "left":
+            case "U":
                 tmp = this.state.snake[1] - 1 < 0 ? this.state.gridSize[1] - 1 :this.state.snake[1] - 1;
                 newSnake = [this.state.snake[0], tmp ];
                 break;
-            case "right":
+            case "D":
                 tmp = (this.state.snake[1] + 1) % this.state.gridSize[0];
                 newSnake = [this.state.snake[0], tmp ];
                 break;
@@ -93,6 +93,7 @@ class Game extends React.Component{
             default:
                 newSnake = [parseInt(this.state.gridSize[0]/2), parseInt(this.state.gridSize[1]/2)];
         }
+        
 
         this.setState({snake: newSnake, time: this.state.time + 1});
 
@@ -101,6 +102,30 @@ class Game extends React.Component{
     componentDidMount(){
         this.setState({snake: [parseInt(this.state.gridSize[0]/2), parseInt(this.state.gridSize[1]/2)]});
         setInterval(this.timeElaps, 500);
+
+        addEventListener('keydown', (event) => {this.BUTTON(event)})
+    }
+    BUTTON(event){
+        let dir = this.state.direction;
+        switch (event.code){
+
+            case "KeyA":
+                dir = "L";
+                break;
+
+            case "KeyD":
+                dir = "R";
+                break;
+
+            case "KeyW":
+                dir = "U";
+                break;
+
+            case "KeyS":
+                dir = "D";
+                break;
+        }
+        this.setState({direction: dir});
     }
 
     onClick(nxtDir){
@@ -114,6 +139,7 @@ class Game extends React.Component{
                     gridSize={this.state.gridSize}
                     snakeTileCoordinates={this.state.snake}
                     foodTileCoordinates={this.state.food}
+                    dir={this.state.direction}
                 />
                )
     } 
